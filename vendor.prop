@@ -27,9 +27,9 @@ persist.vendor.audio.hifi_enabled=false
 ro.audio.offload_wakelock=false
 
 # ---- Bluetooth -------------------------------------------------------------
-ro.bluetooth.a2dp_offload.supported=true
+ro.bluetooth.a2dp_offload.supported=false
 persist.bluetooth.a2dp_offload.cap=sbc
-persist.bluetooth.a2dp_offload.switch=false
+persist.bluetooth.a2dp_offload.switch=true
 bluetooth.profile.a2dp.source.enabled=true
 bluetooth.profile.avrcp.target.enabled=true
 bluetooth.profile.bas.client.enabled=true
