@@ -1,0 +1,24 @@
+# SPDX-FileCopyrightText: The LineageOS Project
+# SPDX-License-Identifier: Apache-2.0
+#
+# Product properties for Infinix Smart 8 (X6525).
+
+# Identity
+ro.product.marketname=Infinix SMART 8
+ro.product.hardware=X6525
+ro.product.transsion.autoReboot=true
+
+# Biometrics
+ro.fingerprint_support=1
+ro.side_fingerprint_support=1
+ro.faceid.support=1
+ro.faceid.version=2
+
+# Camera
+persist.sys.camera_multikill_support=1
+
+# Storage
+persist.sys.fuse.passthrough.enable=true
+
+# Display
+ro.surface_flinger.set_idle_timer_ms=1200

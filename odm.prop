@@ -1,0 +1,20 @@
+# SPDX-FileCopyrightText: The LineageOS Project
+# SPDX-License-Identifier: Apache-2.0
+#
+# ODM properties for Infinix Smart 8 (X6525).
+
+# Dual SIM
+persist.radio.multisim.config=dsds
+persist.vendor.radio.phone_count=2
+persist.vendor.radio.imsua.setting=1
+
+# Bluetooth
+persist.bluetooth.a2dp_offload.disabled=false
+
+# Camera
+ro.vendor.camera.dualcamera_cali_enable=1
+persist.vendor.cam.multi.camera.enable=0
+persist.vendor.cam.zsl.buffer=3
+
+# Navigation
+qemu.hw.mainkeys=0

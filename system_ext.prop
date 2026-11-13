@@ -1,0 +1,8 @@
+# SPDX-FileCopyrightText: The LineageOS Project
+# SPDX-License-Identifier: Apache-2.0
+#
+# System_ext properties for Infinix Smart 8 (X6525).
+
+ro.telephony.se.enable=false
+persist.sys.support.vt=true
+keyguard.no_require_sim=true
