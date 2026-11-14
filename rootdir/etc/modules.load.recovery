@@ -120,6 +120,10 @@ sprd-charger-manager.ko
 misc_sprd_uid.ko
 focaltech_ft8756_spi_ts.ko
 nvt_nt36xxx_spi_ts.ko
+adaptive-ts.ko
+focaltech_ft8722.ko
+omnivision_td4160.ko
+tran_gesture.ko
 agdsp_access.ko
 audio-dsp-dump.ko
 audio_mem.ko

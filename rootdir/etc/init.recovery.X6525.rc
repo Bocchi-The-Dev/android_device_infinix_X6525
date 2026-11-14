@@ -2,11 +2,15 @@ on init
     write /sys/module/musb_hdrc/parameters/kernel_init_done 1
     setprop sys.usb.configfs 1
     setprop sys.usb.controller musb-hdrc.1.auto
-    start load_modules
 
 on fs
     wait /dev/block/platform/soc/soc:ap-apb/201d0000.sdio
     symlink /dev/block/platform/soc/soc:ap-apb/201d0000.sdio /dev/block/bootdevice
+
+on post-fs
+    # Wait synchronously for async touch firmware loading / input registration
+    # before 'on boot' launches recovery and enumerates /dev/input/event* once.
+    exec - root root -- /system/bin/sh /system/bin/load_modules.sh
 
 on boot
     write /sys/module/musb_hdrc/parameters/kernel_init_done 1
@@ -14,10 +18,3 @@ on boot
     write /sys/class/backlight/sprd_backlight/brightness 128
     start boot-hal-1-2
     start health-hal-2-1
-
-service load_modules /system/bin/sh /system/bin/load_modules.sh
-    user root
-    group root
-    oneshot
-    disabled
-    seclabel u:r:recovery:s0

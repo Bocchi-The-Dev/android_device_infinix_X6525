@@ -105,6 +105,7 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/prebuilts/avb/r-gsi.avbpubkey:$(TARGET_COPY_OUT_RECOVERY)/root/first_stage_ramdisk/avb/r-gsi.avbpubkey \
     $(LOCAL_PATH)/prebuilts/avb/s-gsi.avbpubkey:$(TARGET_COPY_OUT_RECOVERY)/root/first_stage_ramdisk/avb/s-gsi.avbpubkey \
     $(LOCAL_PATH)/prebuilts/recovery_modules/adaptive-ts.ko:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/lib/modules/adaptive-ts.ko \
+    $(LOCAL_PATH)/prebuilts/recovery_modules/focaltech_ft8722.ko:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/lib/modules/focaltech_ft8722.ko \
     $(LOCAL_PATH)/prebuilts/recovery_modules/omnivision_td4160.ko:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/lib/modules/omnivision_td4160.ko \
     $(LOCAL_PATH)/prebuilts/recovery_modules/focaltech_ft8756_spi_ts.ko:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/lib/modules/focaltech_ft8756_spi_ts.ko \
     $(LOCAL_PATH)/prebuilts/recovery_modules/nvt_nt36xxx_spi_ts.ko:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/lib/modules/nvt_nt36xxx_spi_ts.ko \
