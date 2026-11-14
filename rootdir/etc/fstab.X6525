@@ -3,10 +3,10 @@
 #
 # Android fstab for Infinix Smart 8 (X6525 / ums9230).
 #
-# This file is installed as /first_stage_ramdisk/fstab.X6525 in vendor_boot and
-# is also used as TARGET_RECOVERY_FSTAB. The stock /vendor/etc/fstab.X6525 is
-# still shipped from the dump and is what second-stage init uses; keep the two
-# in sync.
+# This file is installed as /first_stage_ramdisk/fstab.X6525 in vendor_boot,
+# used as TARGET_RECOVERY_FSTAB, and copied to /vendor/etc/fstab.X6525 (taking
+# first-copy priority over the proprietary dump copy) so second-stage init uses
+# the same mount table and nofail flags.
 #
 # AVB note: `avb=` and `avb_keys=` match Kyros70/stock first-stage fstab so
 # existing stock/Treble GSI dm-verity systems can mount cleanly. When top-level

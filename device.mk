@@ -78,8 +78,10 @@ PRODUCT_PACKAGES += \
 #         android.hardware.health@2.1-impl \
 #         android.hardware.health@2.1-service
 
-# First-stage fstab for vendor_boot. Named after ro.hardware, which the
-# bootloader reports as "X6525" on this device.
+# First- and second-stage fstab. Named after ro.hardware, which the bootloader
+# reports as "X6525" on this device. Install to $(TARGET_COPY_OUT_VENDOR)/etc
+# before inheriting X6525-vendor.mk so it wins first-copy priority over the dump
+# copy and keeps second-stage mount flags in sync.
 #
 # Use TARGET_COPY_OUT_VENDOR_RAMDISK ("vendor_ramdisk"), not
 # TARGET_VENDOR_RAMDISK_OUT: product makefiles are parsed before envsetup.mk
@@ -87,6 +89,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/rootdir/etc/fstab.X6525:$(TARGET_COPY_OUT_VENDOR_RAMDISK)/first_stage_ramdisk/fstab.X6525 \
     $(LOCAL_PATH)/rootdir/etc/fstab.X6525:$(TARGET_COPY_OUT_RECOVERY)/root/first_stage_ramdisk/fstab.X6525 \
+    $(LOCAL_PATH)/rootdir/etc/fstab.X6525:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.X6525 \
     $(LOCAL_PATH)/rootdir/etc/modules.load:$(TARGET_COPY_OUT_RECOVERY)/root/lib/modules/modules.load \
     $(LOCAL_PATH)/rootdir/etc/init.recovery.X6525.rc:$(TARGET_COPY_OUT_RECOVERY)/root/init.recovery.X6525.rc \
     $(LOCAL_PATH)/rootdir/etc/ueventd.X6525.rc:$(TARGET_COPY_OUT_RECOVERY)/root/ueventd.X6525.rc \
@@ -127,6 +130,23 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/prebuilts/firmware/hdl_firmware_01.img:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/hdl_firmware_01.img \
     $(LOCAL_PATH)/prebuilts/firmware/focaltech_ts_fw.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/focaltech_ts_fw.bin \
     $(LOCAL_PATH)/prebuilts/firmware/novatek_ts_fw.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/novatek_ts_fw.bin
+
+# Overlays
+DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
+
+PRODUCT_PACKAGES += \
+    BluetoothOverlayX6525 \
+    TetheringOverlayX6525 \
+    WifiOverlayX6525
+
+# HALs / vendor services (matching stock lazy/binder behavior)
+PRODUCT_PACKAGES += \
+    android.hardware.cas@1.2-service-lazy \
+    android.hardware.hardware_keystore.xml \
+    android.hardware.wifi@1.0-service-lazy \
+    libwifi-hal \
+    vndservice \
+    vndservicemanager
 
 # Product characteristics
 PRODUCT_CHARACTERISTICS := default

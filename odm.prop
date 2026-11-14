@@ -3,12 +3,15 @@
 #
 # ODM properties for Infinix Smart 8 (X6525), extracted from stock /odm/etc/build.prop.
 
+# Identity / Board
+ro.product.board=Infinix-X6525
+ro.product.odm.tran.device.name.default=Infinix SMART 8
+
 # Dual SIM
 persist.radio.multisim.config=dsds
 persist.vendor.radio.phone_count=2
 
 # Display / Recovery UI
-ro.sf.lcd_density=320
 ro.recovery.ui.dropscreen=1
 ro.recovery.ui.margin_height=45
 
@@ -93,6 +96,7 @@ persist.vendor.cam.sprdUltraDistortionCorrectEnable=1
 persist.vendor.cam.lightportrait.ba.enable=1
 persist.vendor.cam.lightportrait.fr.enable=1
 persist.vendor.cam.fd.enable=true
+persist.vendor.cam.blur.fast.thumb=1
 persist.vendor.cam.raw.output.enable=0
 persist.vendor.cam.virtual.raw.channel=1
 persist.vendor.cam.local.raw.enable=1

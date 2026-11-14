@@ -8,20 +8,8 @@
 # anything that differs is a device-specific value you should keep.
 
 # ART / Dalvik tuning
-dalvik.vm.appimageformat=lz4
-dalvik.vm.dex2oat-Xms=64m
-dalvik.vm.dex2oat-Xmx=512m
-dalvik.vm.dex2oat-max-image-block-size=524288
-dalvik.vm.dex2oat-minidebuginfo=true
-dalvik.vm.dex2oat-resolve-startup-strings=true
-dalvik.vm.dexopt.secondary=true
 dalvik.vm.heapgrowthlimit=128m
 dalvik.vm.heapsize=256m
-dalvik.vm.image-dex2oat-Xms=64m
-dalvik.vm.image-dex2oat-Xmx=64m
-dalvik.vm.minidebuginfo=true
-dalvik.vm.usejit=true
-dalvik.vm.usejitprofiles=true
 
 # Stock is Android 13 Go edition and ships ro.config.low_ram=true, but this
 # tree builds full LineageOS (not Go), where low_ram changes ActivityManager and
@@ -29,11 +17,5 @@ dalvik.vm.usejitprofiles=true
 # false unless you are porting the Go configuration properly.
 ro.config.low_ram=false
 
-# Networking
-net.bt.name=Android
-
 # Misc
-persist.traced.enable=1
-ro.actionable_compatible_property.enabled=true
-ro.allow.mock.location=0
 ro.dalvik.vm.native.bridge=0

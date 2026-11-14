@@ -195,18 +195,6 @@
         </interface>
         <fqname>@1.0::IConnmgr/default</fqname>
     </hal>
-    <hal format="aidl">
-        <name>vendor.sprd.hardware.enhance</name>
-        <interface>
-            <name>IEnhance</name>
-            <instance>default</instance>
-        </interface>
-        <fqname>IEnhance/default</fqname>
-    </hal>
-    <hal format="aidl">
-        <name>vendor.sprd.hardware.network</name>
-        <fqname>INetworkControl/default</fqname>
-    </hal>
     <hal format="hidl">
         <name>vendor.sprd.hardware.wcn</name>
         <transport>hwbinder</transport>

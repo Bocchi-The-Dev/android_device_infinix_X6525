@@ -34,6 +34,7 @@ TARGET_OTA_ASSERT_DEVICE := X6525,Infinix-X6525
 BOARD_VNDK_VERSION := current
 BOARD_SHIPPING_API_LEVEL := 33
 BOARD_API_LEVEL := 33
+VENDOR_SECURITY_PATCH := 2024-05-05
 
 # ----------------------------------------------------------------------------
 # Display
@@ -156,6 +157,7 @@ TARGET_COPY_OUT_PRODUCT := product
 TARGET_COPY_OUT_SYSTEM_EXT := system_ext
 TARGET_COPY_OUT_ODM := odm
 TARGET_COPY_OUT_VENDOR_DLKM := vendor_dlkm
+BOARD_ROOT_EXTRA_FOLDERS += tranfs blackbox
 
 # ----------------------------------------------------------------------------
 # Recovery
@@ -202,6 +204,11 @@ TARGET_SYSTEM_EXT_PROP += $(DEVICE_PATH)/system_ext.prop
 TARGET_ODM_PROP += $(DEVICE_PATH)/odm.prop
 
 # ----------------------------------------------------------------------------
+# Wi-Fi
+# ----------------------------------------------------------------------------
+WIFI_MULTIPLE_VENDOR_HALS := true
+
+# ----------------------------------------------------------------------------
 # VINTF
 # ----------------------------------------------------------------------------
 DEVICE_MANIFEST_FILE += \
@@ -214,7 +221,6 @@ DEVICE_MANIFEST_FILE += \
     vendor/infinix/X6525/proprietary/vendor/etc/vintf/manifest/android.hardware.usb-service.example.xml \
     vendor/infinix/X6525/proprietary/vendor/etc/vintf/manifest/android.hardware.wifi.hostapd.xml \
     vendor/infinix/X6525/proprietary/vendor/etc/vintf/manifest/android.hardware.wifi.supplicant.xml \
-    vendor/infinix/X6525/proprietary/vendor/etc/vintf/manifest/android.hardware.wifi@1.0-service.xml \
     vendor/infinix/X6525/proprietary/vendor/etc/vintf/manifest/bluetooth_audio.xml \
     vendor/infinix/X6525/proprietary/vendor/etc/vintf/manifest/face-default.xml \
     vendor/infinix/X6525/proprietary/vendor/etc/vintf/manifest/power.stats-default.xml
