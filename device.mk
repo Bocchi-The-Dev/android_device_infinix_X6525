@@ -7,7 +7,8 @@
 $(call inherit-product, $(SRC_TARGET_DIR)/product/updatable_apex.mk)
 
 # Virtual A/B
-$(call inherit-product, $(SRC_TARGET_DIR)/product/virtual_ab_ota.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/virtual_ab_ota/launch_with_vendor_ramdisk.mk)
+PRODUCT_VIRTUAL_AB_COMPRESSION := true
 
 # API level
 PRODUCT_SHIPPING_API_LEVEL := 33
@@ -40,6 +41,9 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     checkpoint_gc \
     otapreopt_script \
+    snapuserd \
+    snapuserd.recovery \
+    snapuserd.vendor_ramdisk \
     update_engine \
     update_engine_sideload \
     update_verifier
@@ -82,7 +86,15 @@ PRODUCT_PACKAGES += \
 # defines the _OUT variables, so _OUT would expand to an empty string here.
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/rootdir/etc/fstab.X6525:$(TARGET_COPY_OUT_VENDOR_RAMDISK)/first_stage_ramdisk/fstab.X6525 \
-    $(LOCAL_PATH)/rootdir/etc/init.recovery.X6525.rc:$(TARGET_COPY_OUT_RECOVERY)/root/init.recovery.X6525.rc
+    $(LOCAL_PATH)/rootdir/etc/init.recovery.X6525.rc:$(TARGET_COPY_OUT_RECOVERY)/root/init.recovery.X6525.rc \
+    $(LOCAL_PATH)/prebuilts/firmware/hdl_firmware_00.img:$(TARGET_COPY_OUT_VENDOR_RAMDISK)/lib/firmware/hdl_firmware_00.img \
+    $(LOCAL_PATH)/prebuilts/firmware/hdl_firmware_01.img:$(TARGET_COPY_OUT_VENDOR_RAMDISK)/lib/firmware/hdl_firmware_01.img \
+    $(LOCAL_PATH)/prebuilts/firmware/focaltech_ts_fw.bin:$(TARGET_COPY_OUT_VENDOR_RAMDISK)/lib/firmware/focaltech_ts_fw.bin \
+    $(LOCAL_PATH)/prebuilts/firmware/novatek_ts_fw.bin:$(TARGET_COPY_OUT_VENDOR_RAMDISK)/lib/firmware/novatek_ts_fw.bin \
+    $(LOCAL_PATH)/prebuilts/firmware/hdl_firmware_00.img:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/hdl_firmware_00.img \
+    $(LOCAL_PATH)/prebuilts/firmware/hdl_firmware_01.img:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/hdl_firmware_01.img \
+    $(LOCAL_PATH)/prebuilts/firmware/focaltech_ts_fw.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/focaltech_ts_fw.bin \
+    $(LOCAL_PATH)/prebuilts/firmware/novatek_ts_fw.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/novatek_ts_fw.bin
 
 # Product characteristics
 PRODUCT_CHARACTERISTICS := default
