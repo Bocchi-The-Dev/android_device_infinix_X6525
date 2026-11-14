@@ -86,11 +86,42 @@ PRODUCT_PACKAGES += \
 # defines the _OUT variables, so _OUT would expand to an empty string here.
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/rootdir/etc/fstab.X6525:$(TARGET_COPY_OUT_VENDOR_RAMDISK)/first_stage_ramdisk/fstab.X6525 \
+    $(LOCAL_PATH)/rootdir/etc/fstab.X6525:$(TARGET_COPY_OUT_RECOVERY)/root/first_stage_ramdisk/fstab.X6525 \
+    $(LOCAL_PATH)/rootdir/etc/modules.load:$(TARGET_COPY_OUT_RECOVERY)/root/lib/modules/modules.load \
     $(LOCAL_PATH)/rootdir/etc/init.recovery.X6525.rc:$(TARGET_COPY_OUT_RECOVERY)/root/init.recovery.X6525.rc \
+    $(LOCAL_PATH)/rootdir/etc/ueventd.X6525.rc:$(TARGET_COPY_OUT_RECOVERY)/root/ueventd.X6525.rc \
+    $(LOCAL_PATH)/rootdir/etc/ueventd.module.rc:$(TARGET_COPY_OUT_RECOVERY)/root/ueventd.module.rc \
+    $(LOCAL_PATH)/rootdir/bin/load_modules.sh:$(TARGET_COPY_OUT_RECOVERY)/root/system/bin/load_modules.sh \
+    $(LOCAL_PATH)/prebuilts/avb/q-gsi.avbpubkey:$(TARGET_COPY_OUT_VENDOR_RAMDISK)/avb/q-gsi.avbpubkey \
+    $(LOCAL_PATH)/prebuilts/avb/r-gsi.avbpubkey:$(TARGET_COPY_OUT_VENDOR_RAMDISK)/avb/r-gsi.avbpubkey \
+    $(LOCAL_PATH)/prebuilts/avb/s-gsi.avbpubkey:$(TARGET_COPY_OUT_VENDOR_RAMDISK)/avb/s-gsi.avbpubkey \
+    $(LOCAL_PATH)/prebuilts/avb/q-gsi.avbpubkey:$(TARGET_COPY_OUT_VENDOR_RAMDISK)/first_stage_ramdisk/avb/q-gsi.avbpubkey \
+    $(LOCAL_PATH)/prebuilts/avb/r-gsi.avbpubkey:$(TARGET_COPY_OUT_VENDOR_RAMDISK)/first_stage_ramdisk/avb/r-gsi.avbpubkey \
+    $(LOCAL_PATH)/prebuilts/avb/s-gsi.avbpubkey:$(TARGET_COPY_OUT_VENDOR_RAMDISK)/first_stage_ramdisk/avb/s-gsi.avbpubkey \
+    $(LOCAL_PATH)/prebuilts/avb/q-gsi.avbpubkey:$(TARGET_COPY_OUT_RECOVERY)/root/avb/q-gsi.avbpubkey \
+    $(LOCAL_PATH)/prebuilts/avb/r-gsi.avbpubkey:$(TARGET_COPY_OUT_RECOVERY)/root/avb/r-gsi.avbpubkey \
+    $(LOCAL_PATH)/prebuilts/avb/s-gsi.avbpubkey:$(TARGET_COPY_OUT_RECOVERY)/root/avb/s-gsi.avbpubkey \
+    $(LOCAL_PATH)/prebuilts/avb/q-gsi.avbpubkey:$(TARGET_COPY_OUT_RECOVERY)/root/first_stage_ramdisk/avb/q-gsi.avbpubkey \
+    $(LOCAL_PATH)/prebuilts/avb/r-gsi.avbpubkey:$(TARGET_COPY_OUT_RECOVERY)/root/first_stage_ramdisk/avb/r-gsi.avbpubkey \
+    $(LOCAL_PATH)/prebuilts/avb/s-gsi.avbpubkey:$(TARGET_COPY_OUT_RECOVERY)/root/first_stage_ramdisk/avb/s-gsi.avbpubkey \
+    $(LOCAL_PATH)/prebuilts/recovery_modules/adaptive-ts.ko:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/lib/modules/adaptive-ts.ko \
+    $(LOCAL_PATH)/prebuilts/recovery_modules/omnivision_td4160.ko:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/lib/modules/omnivision_td4160.ko \
+    $(LOCAL_PATH)/prebuilts/recovery_modules/focaltech_ft8756_spi_ts.ko:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/lib/modules/focaltech_ft8756_spi_ts.ko \
+    $(LOCAL_PATH)/prebuilts/recovery_modules/nvt_nt36xxx_spi_ts.ko:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/lib/modules/nvt_nt36xxx_spi_ts.ko \
+    $(LOCAL_PATH)/prebuilts/recovery_modules/gpio.ko:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/lib/modules/gpio.ko \
+    $(LOCAL_PATH)/prebuilts/recovery_modules/tran_gesture.ko:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/lib/modules/tran_gesture.ko \
     $(LOCAL_PATH)/prebuilts/firmware/hdl_firmware_00.img:$(TARGET_COPY_OUT_VENDOR_RAMDISK)/lib/firmware/hdl_firmware_00.img \
     $(LOCAL_PATH)/prebuilts/firmware/hdl_firmware_01.img:$(TARGET_COPY_OUT_VENDOR_RAMDISK)/lib/firmware/hdl_firmware_01.img \
     $(LOCAL_PATH)/prebuilts/firmware/focaltech_ts_fw.bin:$(TARGET_COPY_OUT_VENDOR_RAMDISK)/lib/firmware/focaltech_ts_fw.bin \
     $(LOCAL_PATH)/prebuilts/firmware/novatek_ts_fw.bin:$(TARGET_COPY_OUT_VENDOR_RAMDISK)/lib/firmware/novatek_ts_fw.bin \
+    $(LOCAL_PATH)/prebuilts/firmware/hdl_firmware_00.img:$(TARGET_COPY_OUT_VENDOR_RAMDISK)/vendor/firmware/hdl_firmware_00.img \
+    $(LOCAL_PATH)/prebuilts/firmware/hdl_firmware_01.img:$(TARGET_COPY_OUT_VENDOR_RAMDISK)/vendor/firmware/hdl_firmware_01.img \
+    $(LOCAL_PATH)/prebuilts/firmware/focaltech_ts_fw.bin:$(TARGET_COPY_OUT_VENDOR_RAMDISK)/vendor/firmware/focaltech_ts_fw.bin \
+    $(LOCAL_PATH)/prebuilts/firmware/novatek_ts_fw.bin:$(TARGET_COPY_OUT_VENDOR_RAMDISK)/vendor/firmware/novatek_ts_fw.bin \
+    $(LOCAL_PATH)/prebuilts/firmware/hdl_firmware_00.img:$(TARGET_COPY_OUT_RECOVERY)/root/lib/firmware/hdl_firmware_00.img \
+    $(LOCAL_PATH)/prebuilts/firmware/hdl_firmware_01.img:$(TARGET_COPY_OUT_RECOVERY)/root/lib/firmware/hdl_firmware_01.img \
+    $(LOCAL_PATH)/prebuilts/firmware/focaltech_ts_fw.bin:$(TARGET_COPY_OUT_RECOVERY)/root/lib/firmware/focaltech_ts_fw.bin \
+    $(LOCAL_PATH)/prebuilts/firmware/novatek_ts_fw.bin:$(TARGET_COPY_OUT_RECOVERY)/root/lib/firmware/novatek_ts_fw.bin \
     $(LOCAL_PATH)/prebuilts/firmware/hdl_firmware_00.img:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/hdl_firmware_00.img \
     $(LOCAL_PATH)/prebuilts/firmware/hdl_firmware_01.img:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/hdl_firmware_01.img \
     $(LOCAL_PATH)/prebuilts/firmware/focaltech_ts_fw.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/focaltech_ts_fw.bin \

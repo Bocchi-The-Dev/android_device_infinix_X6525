@@ -69,7 +69,7 @@ BOARD_KERNEL_OFFSET := 0x00008000
 BOARD_RAMDISK_OFFSET := 0x05400000
 BOARD_KERNEL_TAGS_OFFSET := 0x00000100
 BOARD_DTB_OFFSET := 0x01f00000
-BOARD_KERNEL_CMDLINE := console=ttyS1,115200n8 cgroup_disable=pressure,net_prio cgroup_no_v1=cpu,cpuset,blkio,io,memory
+BOARD_KERNEL_CMDLINE := console=ttyS1,115200n8 androidboot.selinux=permissive enforcing=0
 BOARD_KERNEL_IMAGE_NAME := Image
 BOARD_RAMDISK_USE_LZ4 := true
 BOARD_MKBOOTIMG_ARGS += \
@@ -80,12 +80,13 @@ BOARD_MKBOOTIMG_ARGS += \
 
 # This is an Android 13 GKI device: the kernel lives in boot.img, the vendor
 # ramdisk + DTB live in vendor_boot.img, and recovery is packed into the
-# vendor ramdisk. The GSI AVB keys stay in the stock vendor_boot (we do not
-# build one for bring-up path A), so there is nothing extra to install here.
+# vendor ramdisk alongside GSI AVB keys so first_stage_mount can verify or
+# mount stock/Treble GSIs cleanly.
 BOARD_USES_GENERIC_KERNEL_IMAGE := true
 BOARD_MOVE_RECOVERY_RESOURCES_TO_VENDOR_BOOT := true
 BOARD_INCLUDE_RECOVERY_RAMDISK_IN_VENDOR_BOOT := true
 BOARD_INCLUDE_DTB_IN_BOOTIMG := true
+BOARD_MOVE_GSI_AVB_KEYS_TO_VENDOR_BOOT := true
 
 # ----------------------------------------------------------------------------
 # Kernel
@@ -165,6 +166,9 @@ BOARD_DO_NOT_STRIP_VENDOR_RAMDISK_MODULES := true
 BOARD_VENDOR_RAMDISK_KERNEL_MODULES := $(wildcard $(DEVICE_PATH)/prebuilts/modules/*.ko)
 BOARD_VENDOR_RAMDISK_KERNEL_MODULES_LOAD := $(strip $(shell cat $(DEVICE_PATH)/rootdir/etc/modules.load))
 BOARD_VENDOR_RAMDISK_RECOVERY_KERNEL_MODULES_LOAD := $(strip $(shell cat $(DEVICE_PATH)/rootdir/etc/modules.load.recovery))
+BOARD_DO_NOT_STRIP_RECOVERY_MODULES := true
+BOARD_RECOVERY_KERNEL_MODULES := $(BOARD_VENDOR_RAMDISK_KERNEL_MODULES)
+BOARD_RECOVERY_KERNEL_MODULES_LOAD := $(BOARD_VENDOR_RAMDISK_RECOVERY_KERNEL_MODULES_LOAD)
 
 # ----------------------------------------------------------------------------
 # Verified boot

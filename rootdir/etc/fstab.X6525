@@ -8,24 +8,26 @@
 # still shipped from the dump and is what second-stage init uses; keep the two
 # in sync.
 #
-# AVB note: the `avb=` / `avb_keys=` flags from the stock fstab are deliberately
-# dropped. We build our own vbmeta with --flags 3 (verity + verification off),
-# so there is nothing useful to verify against. If you later want verified boot,
-# restore the stock flags and sign with the real keys, and recreate the stock
-# five-image chain (vbmeta_system / vbmeta_vendor / vbmeta_odm / vbmeta_product /
-# vbmeta_system_ext) instead of this tree's two-group split; see
-# docs/DEVICE_TREE.md section 6.
+# AVB note: `avb=` and `avb_keys=` match Kyros70/stock first-stage fstab so
+# existing stock/Treble GSI dm-verity systems can mount cleanly. When top-level
+# `vbmeta` is flashed with `--flags 3`, `first_stage_mount` skips hashtree setup
+# automatically even with these flags present.
 
 # ---------------------------------------------------------------------------
 # Logical (dynamic) partitions
 # ---------------------------------------------------------------------------
-system       /system       erofs  ro                     wait,logical,first_stage_mount,slotselect
-system       /system       ext4   ro,barrier=1           wait,logical,first_stage_mount,slotselect
-system_ext   /system_ext   erofs  ro                     wait,logical,first_stage_mount,slotselect
-vendor       /vendor       erofs  ro                     wait,logical,first_stage_mount,slotselect
-odm          /odm          erofs  ro                     wait,logical,first_stage_mount,slotselect
-product      /product      erofs  ro                     wait,logical,first_stage_mount,slotselect
-vendor_dlkm  /vendor_dlkm  erofs  ro                     wait,logical,first_stage_mount,slotselect
+system       /system       erofs  ro                     wait,avb=vbmeta_system,logical,first_stage_mount,avb_keys=/avb/q-gsi.avbpubkey:/avb/r-gsi.avbpubkey:/avb/s-gsi.avbpubkey,slotselect
+system       /system       ext4   ro,barrier=1           wait,avb=vbmeta_system,logical,first_stage_mount,avb_keys=/avb/q-gsi.avbpubkey:/avb/r-gsi.avbpubkey:/avb/s-gsi.avbpubkey,slotselect
+system_ext   /system_ext   erofs  ro                     wait,avb=vbmeta_system,logical,first_stage_mount,slotselect
+system_ext   /system_ext   ext4   ro,barrier=1           wait,avb=vbmeta_system,logical,first_stage_mount,slotselect
+vendor       /vendor       erofs  ro                     wait,avb=vbmeta_vendor,logical,first_stage_mount,slotselect
+vendor       /vendor       ext4   ro,barrier=1           wait,avb=vbmeta_vendor,logical,first_stage_mount,slotselect
+odm          /odm          erofs  ro                     wait,avb=vbmeta_odm,logical,first_stage_mount,slotselect
+odm          /odm          ext4   ro,barrier=1           wait,avb=vbmeta_odm,logical,first_stage_mount,slotselect
+product      /product      erofs  ro                     wait,avb=vbmeta_product,logical,first_stage_mount,slotselect
+product      /product      ext4   ro,barrier=1           wait,avb=vbmeta_product,logical,first_stage_mount,slotselect
+vendor_dlkm  /vendor_dlkm  erofs  ro                     wait,avb=vbmeta_system_ext,logical,first_stage_mount,slotselect
+vendor_dlkm  /vendor_dlkm  ext4   ro,barrier=1           wait,avb=vbmeta_system_ext,logical,first_stage_mount,slotselect
 
 # ---------------------------------------------------------------------------
 # Metadata (FBE keys + virtual A/B snapshots)
