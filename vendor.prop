@@ -122,3 +122,4 @@ ro.frp.pst=/dev/block/by-name/persist
 ro.oem_unlock_supported=1
 persist.sys.zram_enabled=1
 persist.sys.usb.config=adb
+sys.usb.controller=musb-hdrc.1.auto

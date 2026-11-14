@@ -84,6 +84,7 @@ BOARD_MKBOOTIMG_ARGS += \
 # build one for bring-up path A), so there is nothing extra to install here.
 BOARD_USES_GENERIC_KERNEL_IMAGE := true
 BOARD_MOVE_RECOVERY_RESOURCES_TO_VENDOR_BOOT := true
+BOARD_INCLUDE_RECOVERY_RAMDISK_IN_VENDOR_BOOT := true
 BOARD_INCLUDE_DTB_IN_BOOTIMG := true
 
 # ----------------------------------------------------------------------------
@@ -160,6 +161,10 @@ TARGET_COPY_OUT_VENDOR_DLKM := vendor_dlkm
 # ----------------------------------------------------------------------------
 TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/rootdir/etc/fstab.X6525
 TARGET_RECOVERY_PIXEL_FORMAT := RGBX_8888
+BOARD_DO_NOT_STRIP_VENDOR_RAMDISK_MODULES := true
+BOARD_VENDOR_RAMDISK_KERNEL_MODULES := $(wildcard $(DEVICE_PATH)/prebuilts/modules/*.ko)
+BOARD_VENDOR_RAMDISK_KERNEL_MODULES_LOAD := $(strip $(shell cat $(DEVICE_PATH)/rootdir/etc/modules.load))
+BOARD_VENDOR_RAMDISK_RECOVERY_KERNEL_MODULES_LOAD := $(strip $(shell cat $(DEVICE_PATH)/rootdir/etc/modules.load.recovery))
 
 # ----------------------------------------------------------------------------
 # Verified boot

@@ -81,7 +81,8 @@ PRODUCT_PACKAGES += \
 # TARGET_VENDOR_RAMDISK_OUT: product makefiles are parsed before envsetup.mk
 # defines the _OUT variables, so _OUT would expand to an empty string here.
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/rootdir/etc/fstab.X6525:$(TARGET_COPY_OUT_VENDOR_RAMDISK)/first_stage_ramdisk/fstab.X6525
+    $(LOCAL_PATH)/rootdir/etc/fstab.X6525:$(TARGET_COPY_OUT_VENDOR_RAMDISK)/first_stage_ramdisk/fstab.X6525 \
+    $(LOCAL_PATH)/rootdir/etc/init.recovery.X6525.rc:$(TARGET_COPY_OUT_RECOVERY)/root/init.recovery.X6525.rc
 
 # Product characteristics
 PRODUCT_CHARACTERISTICS := default

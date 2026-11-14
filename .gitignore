@@ -1,3 +1,4 @@
 prebuilts/kernel
 prebuilts/dtbo.img
 prebuilts/dtb/*.dtb
+prebuilts/modules/
