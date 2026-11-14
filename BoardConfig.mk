@@ -195,15 +195,32 @@ TARGET_ODM_PROP += $(DEVICE_PATH)/odm.prop
 # ----------------------------------------------------------------------------
 # VINTF
 # ----------------------------------------------------------------------------
-DEVICE_MANIFEST_FILE += $(DEVICE_PATH)/manifest.xml
+DEVICE_MANIFEST_FILE += \
+    $(DEVICE_PATH)/manifest.xml \
+    vendor/infinix/X6525/proprietary/vendor/etc/vintf/manifest/android.hardware.biometrics.fingerprint@2.1-service.xml \
+    vendor/infinix/X6525/proprietary/vendor/etc/vintf/manifest/android.hardware.drm-service.clearkey.xml \
+    vendor/infinix/X6525/proprietary/vendor/etc/vintf/manifest/android.hardware.gatekeeper@1.0-service.trusty.xml \
+    vendor/infinix/X6525/proprietary/vendor/etc/vintf/manifest/android.hardware.health-service.example.xml \
+    vendor/infinix/X6525/proprietary/vendor/etc/vintf/manifest/android.hardware.sensors-multihal.xml \
+    vendor/infinix/X6525/proprietary/vendor/etc/vintf/manifest/android.hardware.usb-service.example.xml \
+    vendor/infinix/X6525/proprietary/vendor/etc/vintf/manifest/android.hardware.wifi.hostapd.xml \
+    vendor/infinix/X6525/proprietary/vendor/etc/vintf/manifest/android.hardware.wifi.supplicant.xml \
+    vendor/infinix/X6525/proprietary/vendor/etc/vintf/manifest/android.hardware.wifi@1.0-service.xml \
+    vendor/infinix/X6525/proprietary/vendor/etc/vintf/manifest/bluetooth_audio.xml \
+    vendor/infinix/X6525/proprietary/vendor/etc/vintf/manifest/face-default.xml \
+    vendor/infinix/X6525/proprietary/vendor/etc/vintf/manifest/power.stats-default.xml
 DEVICE_MATRIX_FILE += $(DEVICE_PATH)/compatibility_matrix.xml
+DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE += $(DEVICE_PATH)/framework_compatibility_matrix.xml
+ODM_MANIFEST_FILES += $(DEVICE_PATH)/odm_manifest.xml
 
 # ----------------------------------------------------------------------------
 # SELinux
 # ----------------------------------------------------------------------------
 # Bring-up only. You will need real rules for the Unisoc HALs before shipping;
 # watch for avc denials in dmesg/logcat and add them under sepolicy/.
+# SELinux / Broken flags
 SELINUX_IGNORE_NEVERALLOWS := true
+BUILD_BROKEN_ELF_PREBUILT_PRODUCT_COPY_FILES := true
 
 # ----------------------------------------------------------------------------
 # Vendor

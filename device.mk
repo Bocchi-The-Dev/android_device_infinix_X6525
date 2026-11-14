@@ -86,5 +86,9 @@ PRODUCT_COPY_FILES += \
 # Product characteristics
 PRODUCT_CHARACTERISTICS := default
 
+# Prebuilt Helix kernel omits CONFIG_AUDIT and sets CONFIG_IP6_NF_NAT/CONFIG_SYSVIPC,
+# which conflicts with FCM level 6 kernel config requirements during OTA/VINTF check.
+PRODUCT_OTA_ENFORCE_VINTF_KERNEL_REQUIREMENTS := false
+
 # Inherit the proprietary files
 $(call inherit-product, vendor/infinix/X6525/X6525-vendor.mk)
