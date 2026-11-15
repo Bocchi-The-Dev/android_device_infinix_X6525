@@ -28,6 +28,14 @@ While booted in LineageOS Recovery (`Advanced` -> `Enable ADB`), run on the host
 curl -sL https://raw.githubusercontent.com/Seuj09/android_device_infinix_X6525/lineage-20/diag.sh | sh
 ```
 
+## Live Boot Diagnostics
+
+If the phone reaches the boot animation with ADB accessible (`ro.adb.secure=0`), run on the host:
+
+```bash
+curl -sL https://raw.githubusercontent.com/Seuj09/android_device_infinix_X6525/lineage-20/live_diag.sh | sh
+```
+
 ## Slot `_b` Bring-up Debug (`v20.0-20261115-bootdiag`)
 
 From LineageOS Recovery (`Enable ADB`), download `vendor_boot.img`, `vendor.img`, and `system.img` from [`v20.0-20261115-bootdiag`](https://github.com/Seuj09/android_device_infinix_X6525/releases/tag/v20.0-20261115-bootdiag) and flash slot `_b` only (leaving slot `_a` untouched):
