@@ -3434,7 +3434,7 @@ vendor/lib/hw/libwifi-hal-unisoc.so
 vendor/lib/hw/local_time.default.so
 vendor/lib/hw/power.default.so
 vendor/lib/hw/sensors.unisoc.so
-vendor/lib/hw/thermal.default.so
+-vendor/lib/hw/thermal.default.so
 vendor/lib/hw/unisoc.bootctrl.so
 vendor/lib/hw/vendor.sprd.hardware.connmgr@1.0-impl.so
 vendor/lib/hw/vendor.sprd.hardware.gnss@1.0-impl.so
@@ -3844,7 +3844,7 @@ vendor/lib64/hw/libwifi-hal-unisoc.so
 vendor/lib64/hw/local_time.default.so
 vendor/lib64/hw/power.default.so
 vendor/lib64/hw/sensors.unisoc.so
-vendor/lib64/hw/thermal.default.so
+-vendor/lib64/hw/thermal.default.so
 vendor/lib64/hw/unisoc.bootctrl.so
 vendor/lib64/hw/vendor.sprd.hardware.algoservice@1.0-impl.so
 vendor/lib64/hw/vendor.sprd.hardware.connmgr@1.0-impl.so
