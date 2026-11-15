@@ -209,6 +209,7 @@ TARGET_ODM_PROP += $(DEVICE_PATH)/odm.prop
 # Wi-Fi
 # ----------------------------------------------------------------------------
 WIFI_MULTIPLE_VENDOR_HALS := true
+WIFI_AVOID_IFACE_RESET_MAC_CHANGE := true
 
 # ----------------------------------------------------------------------------
 # VINTF

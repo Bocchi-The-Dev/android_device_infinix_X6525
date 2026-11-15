@@ -22,7 +22,8 @@ ro.soc.model=T616
 ro.hardware.audio.primary=whale
 ro.vendor.audio.whale_hal=true
 ro.vendor.audio.version=V1.6.1-20240124
-ro.vendor.mmi.use.audio.whale_hal=1
+ro.vendor.mmi.use.audio.whale.hal=1
+persist.sys.audio.source=true
 ro.vendor.af.bt_fc_multiplier=1
 ro.vendor.af.dup_multiplier=2
 ro.vendor.af.raise_bt_thread_prio=true
@@ -196,6 +197,7 @@ ro.rebootescrow.device=/dev/block/pmem0
 
 # ---- Camera ----------------------------------------------------------------
 ro.camera.enableLazyHal=true
+ro.camerax.extensions.enabled=false
 camera.disable_zsl_mode=1
 persist.vendor.cam.brand=transsion
 persist.vendor.cam.prevvideohw3dnr.config=b8603

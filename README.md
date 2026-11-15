@@ -44,6 +44,29 @@ Once booted into LineageOS (with USB debugging and `Settings -> System -> Develo
 curl -sL https://raw.githubusercontent.com/Seuj09/android_device_infinix_X6525/lineage-20/subsys_diag.sh | sh
 ```
 
+### Runtime Audit (Audio / BT Crash / Hotspot BPF / Sensors / Camera / GNSS / HALs)
+
+After toggling Bluetooth, Hotspot, testing Audio/Camera, or placing a call/SMS, run on the host (or directly in a root shell):
+
+```bash
+curl -sL https://raw.githubusercontent.com/Seuj09/android_device_infinix_X6525/lineage-20/audit_diag.sh | sh
+```
+
+## Wi-Fi / Globe APN / Audio & CameraX Fix (`v20.0-20261115-subsysfix`)
+
+If you already flashed `v20.0-20261115-bootdiag` / `v20.0-20261115-thermalfix` on slot `_b`, download `vendor.img` and `system_ext.img` from [`v20.0-20261115-subsysfix`](https://github.com/Seuj09/android_device_infinix_X6525/releases/tag/v20.0-20261115-subsysfix) and update only slot `_b`:
+
+```bash
+adb reboot bootloader
+fastboot set_active b
+fastboot reboot fastboot
+fastboot flash vendor_b vendor.img
+fastboot flash system_ext_b system_ext.img
+fastboot reboot
+```
+
+*(Note: After flashing `system_ext_b`, open Settings → Network & internet → SIMs → TM → Access Point Names → `Reset to default` once so `CarrierConfig` switches Globe/TM `515/02` from legacy WAP `www.globe.com.ph` to `http.globe.com.ph`.)*
+
 ## Thermal HAL Fix (`v20.0-20261115-thermalfix`)
 
 If you already flashed `v20.0-20261115-bootdiag` on slot `_b`, download `vendor.img` from [`v20.0-20261115-thermalfix`](https://github.com/Seuj09/android_device_infinix_X6525/releases/tag/v20.0-20261115-thermalfix) and update only `vendor_b`:
