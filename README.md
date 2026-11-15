@@ -36,6 +36,14 @@ If the phone reaches the boot animation with ADB accessible (`ro.adb.secure=0`),
 curl -sL https://raw.githubusercontent.com/Seuj09/android_device_infinix_X6525/lineage-20/live_diag.sh | sh
 ```
 
+### Subsystem Diagnostics (Wi-Fi / BT / Radio / Audio / Camera / Sensors / FP)
+
+Once booted into LineageOS (with USB debugging and `Settings -> System -> Developer options -> Rooted debugging` enabled for full `dmesg`), toggle Wi-Fi ON and run:
+
+```bash
+curl -sL https://raw.githubusercontent.com/Seuj09/android_device_infinix_X6525/lineage-20/subsys_diag.sh | sh
+```
+
 ## Thermal HAL Fix (`v20.0-20261115-thermalfix`)
 
 If you already flashed `v20.0-20261115-bootdiag` on slot `_b`, download `vendor.img` from [`v20.0-20261115-thermalfix`](https://github.com/Seuj09/android_device_infinix_X6525/releases/tag/v20.0-20261115-thermalfix) and update only `vendor_b`:
