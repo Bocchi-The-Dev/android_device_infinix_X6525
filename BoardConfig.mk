@@ -70,7 +70,7 @@ BOARD_KERNEL_OFFSET := 0x00008000
 BOARD_RAMDISK_OFFSET := 0x05400000
 BOARD_KERNEL_TAGS_OFFSET := 0x00000100
 BOARD_DTB_OFFSET := 0x01f00000
-BOARD_KERNEL_CMDLINE := console=ttyS1,115200n8 androidboot.selinux=permissive enforcing=0
+BOARD_KERNEL_CMDLINE := console=ttyS1,115200n8 androidboot.selinux=permissive enforcing=0 loglevel=7 ignore_loglevel
 BOARD_KERNEL_IMAGE_NAME := Image
 BOARD_RAMDISK_USE_LZ4 := true
 BOARD_MKBOOTIMG_ARGS += \

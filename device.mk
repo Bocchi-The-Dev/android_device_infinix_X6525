@@ -96,6 +96,8 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/rootdir/etc/ueventd.X6525.rc:$(TARGET_COPY_OUT_RECOVERY)/root/ueventd.X6525.rc \
     $(LOCAL_PATH)/rootdir/etc/ueventd.module.rc:$(TARGET_COPY_OUT_RECOVERY)/root/ueventd.module.rc \
     $(LOCAL_PATH)/rootdir/bin/load_modules.sh:$(TARGET_COPY_OUT_RECOVERY)/root/system/bin/load_modules.sh \
+    $(LOCAL_PATH)/rootdir/etc/init.X6525.diag.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/init.X6525.diag.rc \
+    $(LOCAL_PATH)/rootdir/bin/boottrace.sh:$(TARGET_COPY_OUT_VENDOR)/bin/boottrace.sh \
     $(LOCAL_PATH)/prebuilts/avb/q-gsi.avbpubkey:$(TARGET_COPY_OUT_VENDOR_RAMDISK)/avb/q-gsi.avbpubkey \
     $(LOCAL_PATH)/prebuilts/avb/r-gsi.avbpubkey:$(TARGET_COPY_OUT_VENDOR_RAMDISK)/avb/r-gsi.avbpubkey \
     $(LOCAL_PATH)/prebuilts/avb/s-gsi.avbpubkey:$(TARGET_COPY_OUT_VENDOR_RAMDISK)/avb/s-gsi.avbpubkey \

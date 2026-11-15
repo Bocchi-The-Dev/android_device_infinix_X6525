@@ -28,17 +28,18 @@ While booted in LineageOS Recovery (`Advanced` -> `Enable ADB`), run on the host
 curl -sL https://raw.githubusercontent.com/Seuj09/android_device_infinix_X6525/lineage-20/diag.sh | sh
 ```
 
-Or run the individual commands directly (`diag.sh` source):
+## Slot `_b` Bring-up Debug (`v20.0-20261115-bootdiag`)
+
+From LineageOS Recovery (`Enable ADB`), download `vendor_boot.img`, `vendor.img`, and `system.img` from [`v20.0-20261115-bootdiag`](https://github.com/Seuj09/android_device_infinix_X6525/releases/tag/v20.0-20261115-bootdiag) and flash slot `_b` only (leaving slot `_a` untouched):
 
 ```bash
-adb shell "ls -la /sys/fs/pstore /metadata /cache /dev/block/by-name/metadata /dev/block/by-name/cache"
-adb shell "mount -t f2fs /dev/block/by-name/metadata /metadata; mount -t f2fs /dev/block/by-name/cache /cache; dmesg | grep -iE 'f2fs|ext4|mmcblk0p51|mmcblk0p47|pstore|ramoops' | tail -n 40"
-adb shell "xxd -l 64 /dev/block/by-name/metadata"
-adb shell "xxd -s 1024 -l 64 /dev/block/by-name/metadata"
-adb shell "xxd -s 5120 -l 64 /dev/block/by-name/metadata"
-adb shell "xxd -l 64 /dev/block/by-name/cache"
-adb shell "xxd -s 1024 -l 64 /dev/block/by-name/cache"
-adb shell "xxd -s 5120 -l 64 /dev/block/by-name/cache"
-adb shell "ls -la /metadata /metadata/bootstat /metadata/apex /metadata/vold /cache"
-adb shell "tail -n 60 /tmp/recovery.log"
+adb reboot bootloader
+fastboot set_active b
+fastboot flash vendor_boot_b vendor_boot.img
+fastboot reboot fastboot
+fastboot flash vendor_b vendor.img
+fastboot flash system_b system.img
+fastboot reboot
 ```
+
+After normal boot stalls or reboots, boot back into Recovery (`Enable ADB`) and run `diag.sh` above to inspect kernel/init `ramoops` and `/cache/boottrace.txt`.
