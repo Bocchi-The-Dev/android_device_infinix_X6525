@@ -15,6 +15,7 @@ PRODUCT_SHIPPING_API_LEVEL := 33
 
 # Dynamic partitions
 PRODUCT_USE_DYNAMIC_PARTITIONS := true
+PRODUCT_BUILD_CACHE_IMAGE := false
 
 # Boot control HAL
 #
