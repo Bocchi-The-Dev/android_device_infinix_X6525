@@ -13,18 +13,41 @@ Build target:
 lineage_X6525-userdebug
 ```
 
-The short version (run from the root of your LineageOS checkout):
+## Building
+
+Put this tree at `device/infinix/X6525` in a `lineage-22.2` checkout, then use
+`build.sh`. It never calls `sudo`, so it runs in an unprivileged container;
+missing host tools are reported rather than installed.
 
 ```bash
-# 1. Extract the vendor blobs from a dump of the stock partitions.
-device/infinix/X6525/extract-files.py --help   # then run it against your dump
+# once: pull the blobs from the stock phone (adb root) or from a dump path
+device/infinix/X6525/build.sh --extract adb
 
-# 2. Install prebuilts: kernel, dtb, dtbo, modules, firmware.
-#    See device/infinix/X6525/prebuilts/README.md.
-
-# 3. Build.
-source build/envsetup.sh && breakfast X6525 && mka bacon
+# every build
+device/infinix/X6525/build.sh
 ```
+
+The checkout is found from the script's own location, or from
+`ANDROID_BUILD_TOP`, or `/work` when that is the checkout. Override with
+`--top /work/lineage-22.2`. Other flags:
+
+```text
+-j N             parallel jobs (default: nproc)
+-v userdebug     build variant: user, userdebug (default), eng
+--sync           repo sync -c first (needs repo on PATH)
+--clean          m clobber before building
+--ccache-size    ccache limit, default 50G
+```
+
+The package lands in `out/target/product/X6525/lineage-22.2-*.zip`, and the
+build log in `out/build-<timestamp>.log`. Manually, the same thing is:
+
+```bash
+source build/envsetup.sh && lunch lineage_X6525-userdebug && mka bacon
+```
+
+Prebuilts (kernel, dtb, dtbo, modules, firmware) are committed; see
+`prebuilts/README.md`.
 
 SELinux is still permissive during bring-up; `device/infinix/X6525/sepolicy/`
 documents how to collect denials and switch to enforcing.
