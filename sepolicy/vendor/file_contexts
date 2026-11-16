@@ -1,0 +1,16 @@
+# Device-specific file_contexts for the X6525 vendor partition.
+#
+# BoardConfig.mk points BOARD_SEPOLICY_DIRS at this directory, so any
+# file_contexts, *_contexts and *.te file added here is compiled into the
+# vendor policy.
+#
+# This file is intentionally empty of rules. Labelling a stock Unisoc binary
+# with the wrong type is worse than leaving it unlabelled (it will fail to
+# execute or trip a neverallow), so add entries only for paths you have
+# confirmed against the dump. The usual set for this device is the vendor HAL
+# services and their data dirs, for example:
+#
+#   /vendor/bin/hw/vendor\.sprd\.hardware\.wcn@1\.0-service    u:object_r:<domain>_exec:s0
+#   /vendor/bin/hw/vendor\.sprd\.hardware\.connmgr@1\.0-service u:object_r:<domain>_exec:s0
+#
+# where <domain> is a type you declare in a .te file in this directory.

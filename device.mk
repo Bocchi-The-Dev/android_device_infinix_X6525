@@ -141,11 +141,19 @@ PRODUCT_PACKAGES += \
     WifiOverlayX6525
 
 # HALs / vendor services (matching stock lazy/binder behavior)
+#
+# Only what the stock vendor image does not already provide is listed here.
+# Two entries that used to be here must not come back:
+#
+#  * android.hardware.wifi@1.0-service-lazy and libwifi-hal: removed from
+#    AOSP after Android 13. The stock vendor image ships both
+#    (vendor/bin/hw/android.hardware.wifi@1.0-service-lazy and
+#    vendor/lib[64]/libwifi-hal.so, see proprietary-files.txt).
+#  * android.hardware.hardware_keystore.xml: the Android 15 module declares the
+#    latest KeyMint version, while the stock vendor image ships the declaration
+#    that matches the KeyMint this device actually has.
 PRODUCT_PACKAGES += \
     android.hardware.cas@1.2-service-lazy \
-    android.hardware.hardware_keystore.xml \
-    android.hardware.wifi@1.0-service-lazy \
-    libwifi-hal \
     vndservice \
     vndservicemanager
 

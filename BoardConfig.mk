@@ -30,10 +30,20 @@ TARGET_BOOTLOADER_BOARD_NAME := ums9230
 TARGET_NO_BOOTLOADER := true
 TARGET_OTA_ASSERT_DEVICE := X6525,Infinix-X6525
 
-# Treble / VNDK / API levels
-BOARD_VNDK_VERSION := current
+# Treble / API levels
+#
+# VNDK is deprecated starting with Android 15 (LineageOS 22.2): the platform no
+# longer builds a VNDK APEX for the current release, so there is no
+# "current" VNDK to build vendor modules against. Do not set
+# BOARD_VNDK_VERSION here. The vendor side of this device is still the stock
+# Android 13 vendor, which is why compatibility_matrix.xml keeps declaring
+# vendor-ndk 33 while the platform still ships that APEX for existing vendor
+# images.
 BOARD_SHIPPING_API_LEVEL := 33
 BOARD_API_LEVEL := 33
+# Carried over unchanged from the booting lineage-20 tree. The stock PAC's boot
+# image reports an os patch level of 2025-10, so this could be raised to
+# 2025-10-05 if a SPL mismatch warning ever shows up; it does not affect boot.
 VENDOR_SECURITY_PATCH := 2024-05-05
 
 # ----------------------------------------------------------------------------
@@ -79,27 +89,37 @@ BOARD_MKBOOTIMG_ARGS += \
     --tags_offset $(BOARD_KERNEL_TAGS_OFFSET) \
     --dtb_offset $(BOARD_DTB_OFFSET)
 
-# This is an Android 13 GKI device: the kernel lives in boot.img, the vendor
+# This is a GKI device: the kernel lives in boot.img (header v4), the vendor
 # ramdisk + DTB live in vendor_boot.img, and recovery is packed into the
 # vendor ramdisk alongside GSI AVB keys so first_stage_mount can verify or
 # mount stock/Treble GSIs cleanly.
+#
+# Android 15's board_config.mk hard-errors when BOARD_PREBUILT_DTBIMAGE_DIR is
+# set without BOARD_INCLUDE_DTB_IN_BOOTIMG := true:
+#
+#   $(error BOARD_PREBUILT_DTBIMAGE_DIR with 'BOARD_INCLUDE_DTB_IN_BOOTIMG != true' is not supported)
+#
+# so the flag is mandatory for the prebuilt DTB path below, not optional. With a
+# header-v4 image the DTB is written to the vendor_boot dtb section (stock
+# vendor_boot carries the same 122690-byte DTB at 0x01f00000 = BOARD_DTB_OFFSET).
+BOARD_INCLUDE_DTB_IN_BOOTIMG := true
 BOARD_USES_GENERIC_KERNEL_IMAGE := true
 BOARD_MOVE_RECOVERY_RESOURCES_TO_VENDOR_BOOT := true
 BOARD_INCLUDE_RECOVERY_RAMDISK_IN_VENDOR_BOOT := true
-BOARD_INCLUDE_DTB_IN_BOOTIMG := true
 BOARD_MOVE_GSI_AVB_KEYS_TO_VENDOR_BOOT := true
 
 # ----------------------------------------------------------------------------
 # Kernel
 # ----------------------------------------------------------------------------
 # The stock kernel is used by default. Extract it from the device's boot.img /
-# vendor_boot.img / dtbo.img with tools/unpack-boot.sh (see docs/BRINGUP.md).
+# vendor_boot.img / dtbo.img with magiskboot or unpack_bootimg; see
+# prebuilts/README.md for the expected layout.
 #
 # To build the kernel from source instead, clone the kernel to
 # kernel/infinix/X6525, set TARGET_FORCE_PREBUILT_KERNEL := false and drop the
 # BOARD_PREBUILT_DTBIMAGE_DIR line. Building the Unisoc 5.4 GKI kernel inside
 # the Lineage build is fragile; most people build it out-of-tree and keep the
-# prebuilt path. See docs/BRINGUP.md.
+# prebuilt path.
 TARGET_FORCE_PREBUILT_KERNEL := true
 ifeq ($(TARGET_FORCE_PREBUILT_KERNEL),true)
 TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilts/kernel
@@ -234,9 +254,14 @@ ODM_MANIFEST_FILES += $(DEVICE_PATH)/odm_manifest.xml
 # ----------------------------------------------------------------------------
 # SELinux
 # ----------------------------------------------------------------------------
-# Bring-up only. You will need real rules for the Unisoc HALs before shipping;
-# watch for avc denials in dmesg/logcat and add them under sepolicy/.
-# SELinux / Broken flags
+# Device policy lives in sepolicy/. It starts out empty on purpose: the tree
+# still boots permissive (see BOARD_KERNEL_CMDLINE) and the real rules have to
+# come from avc denials on this device. The directory is wired up now so new
+# rules are picked up without touching this file again.
+BOARD_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy/vendor
+
+# Bring-up only. Remove both of these, and the permissive cmdline, before
+# shipping.
 SELINUX_IGNORE_NEVERALLOWS := true
 BUILD_BROKEN_ELF_PREBUILT_PRODUCT_COPY_FILES := true
 

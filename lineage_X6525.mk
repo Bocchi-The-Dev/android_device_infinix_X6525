@@ -7,13 +7,12 @@
 $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 
-# GSI AVB keys: the stock vendor_boot ramdisk carries
-# /avb/{q,r,s}-gsi.avbpubkey, so as long as you keep the stock vendor_boot
-# (bring-up path A in docs/BRINGUP.md) nothing needs to be installed here.
-# There is no gsi_keys.mk in lineage-20.0; the closest thing is
-# $(SRC_TARGET_DIR)/product/developer_gsi_keys.mk, which installs the
-# *developer* GSI keys under different file names. Only inherit it if you
-# actually intend to boot a developer GSI with verified boot.
+# GSI AVB keys: prebuilts/avb/{q,r,s}-gsi.avbpubkey are installed into the
+# vendor ramdisk by device.mk, matching the keys the stock vendor_boot.img
+# already carries, so nothing needs to be done here.
+# $(SRC_TARGET_DIR)/product/developer_gsi_keys.mk installs the *developer* GSI
+# keys under different file names; only inherit it if you actually intend to
+# boot a developer GSI with verified boot.
 
 # Inherit from the Infinix X6525 device tree.
 $(call inherit-product, device/infinix/X6525/device.mk)
