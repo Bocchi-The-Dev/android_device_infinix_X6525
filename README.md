@@ -20,79 +20,31 @@ device/infinix/X6525/extract-files.sh ~/dump
 source build/envsetup.sh && breakfast X6525 && mka bacon
 ```
 
-## Recovery Diagnostics
+## Beta Release (`v20.0-20261116-beta`)
 
-While booted in LineageOS Recovery (`Advanced` -> `Enable ADB`), run on the host:
+Built cleanly from `lineage-20` with all bring-up debug helpers (`WITH_ADB_INSECURE`, `ignore_loglevel`, `init.X6525.diag.rc`, `boottrace.sh`) removed.
+
+### Assets (from [`v20.0-20261116-beta`](https://github.com/Seuj09/android_device_infinix_X6525/releases/tag/v20.0-20261116-beta))
+- `lineage-20.0-20261116-UNOFFICIAL-X6525.zip` (`.sha256sum`) — Full LineageOS 20 OTA package
+- `boot.img`, `dtbo.img`, `vendor_boot.img` — Clean boot/recovery/DTBO images (`vbmeta*` omitted; assumes verification is already disabled)
+
+### Installing / Updating
+
+From LineageOS Recovery (`Apply Update` -> `Apply from ADB`):
 
 ```bash
-curl -sL https://raw.githubusercontent.com/Seuj09/android_device_infinix_X6525/lineage-20/diag.sh | sh
+adb sideload lineage-20.0-20261116-UNOFFICIAL-X6525.zip
 ```
 
-## Live Boot Diagnostics
+> **Note for A/B slot `_a` stock backup**: `adb sideload` writes the OTA payload to the **inactive** slot (so if you are currently on slot `_b`, sideloading writes to slot `_a`). If you want to keep slot `_a` untouched as a stock backup, install only `vendor_boot_b`, `boot_b`, `dtbo_b`, and the extracted partition images onto `*_b` via `fastbootd` instead.
 
-If the phone reaches the boot animation with ADB accessible (`ro.adb.secure=0`), run on the host:
+If you are switching from another ROM or stock, wipe data in Recovery (`Factory reset` -> `Format data/factory reset`) after/before sideloading.
 
-```bash
-curl -sL https://raw.githubusercontent.com/Seuj09/android_device_infinix_X6525/lineage-20/live_diag.sh | sh
-```
+## Subsystem & Runtime Diagnostics
 
-### Subsystem Diagnostics (Wi-Fi / BT / Radio / Audio / Camera / Sensors / FP)
-
-Once booted into LineageOS (with USB debugging and `Settings -> System -> Developer options -> Rooted debugging` enabled for full `dmesg`), toggle Wi-Fi ON and run:
+Once booted into LineageOS (with USB debugging and `Settings -> System -> Developer options -> Rooted debugging` enabled):
 
 ```bash
 curl -sL https://raw.githubusercontent.com/Seuj09/android_device_infinix_X6525/lineage-20/subsys_diag.sh | sh
-```
-
-### Runtime Audit (Audio / BT Crash / Hotspot BPF / Sensors / Camera / GNSS / HALs)
-
-After toggling Bluetooth, Hotspot, testing Audio/Camera, or placing a call/SMS, run on the host (or directly in a root shell):
-
-```bash
 curl -sL https://raw.githubusercontent.com/Seuj09/android_device_infinix_X6525/lineage-20/audit_diag.sh | sh
 ```
-
-## Wi-Fi / Globe APN / Audio & CameraX Fix (`v20.0-20261115-subsysfix`)
-
-If you already flashed `v20.0-20261115-bootdiag` / `v20.0-20261115-thermalfix` on slot `_b`, download `vendor.img` and `system_ext.img` from [`v20.0-20261115-subsysfix`](https://github.com/Seuj09/android_device_infinix_X6525/releases/tag/v20.0-20261115-subsysfix) and update only slot `_b`:
-
-```bash
-adb reboot bootloader
-fastboot set_active b
-fastboot reboot fastboot
-fastboot flash vendor_b vendor.img
-fastboot flash system_ext_b system_ext.img
-fastboot reboot
-```
-
-*(Note: After flashing `system_ext_b`, open Settings → Network & internet → SIMs → TM → Access Point Names → `Reset to default` once so `CarrierConfig` switches Globe/TM `515/02` from legacy WAP `www.globe.com.ph` to `http.globe.com.ph`.)*
-
-## Thermal HAL Fix (`v20.0-20261115-thermalfix`)
-
-If you already flashed `v20.0-20261115-bootdiag` on slot `_b`, download `vendor.img` from [`v20.0-20261115-thermalfix`](https://github.com/Seuj09/android_device_infinix_X6525/releases/tag/v20.0-20261115-thermalfix) and update only `vendor_b`:
-
-```bash
-adb reboot bootloader
-fastboot set_active b
-fastboot reboot fastboot
-fastboot flash vendor_b vendor.img
-fastboot reboot
-```
-
-Once booted (or if it still loops at the boot animation), run `live_diag.sh` above.
-
-## Slot `_b` Bring-up Debug (`v20.0-20261115-bootdiag`)
-
-From LineageOS Recovery (`Enable ADB`), download `vendor_boot.img`, `vendor.img`, and `system.img` from [`v20.0-20261115-bootdiag`](https://github.com/Seuj09/android_device_infinix_X6525/releases/tag/v20.0-20261115-bootdiag) and flash slot `_b` only (leaving slot `_a` untouched):
-
-```bash
-adb reboot bootloader
-fastboot set_active b
-fastboot flash vendor_boot_b vendor_boot.img
-fastboot reboot fastboot
-fastboot flash vendor_b vendor.img
-fastboot flash system_b system.img
-fastboot reboot
-```
-
-After normal boot stalls or reboots, boot back into Recovery (`Enable ADB`) and run `diag.sh` above to inspect kernel/init `ramoops` and `/cache/boottrace.txt`.

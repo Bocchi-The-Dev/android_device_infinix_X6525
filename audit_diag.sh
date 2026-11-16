@@ -26,7 +26,13 @@ if command -v adb >/dev/null 2>&1 && [ ! -e /system/bin/getprop ]; then
     }
 else
     shrun() {
-        printf '%s\n' "$1" | sh -s 2>&1
+        if [ "$(id -u)" = "0" ]; then
+            printf '%s\n' "$1" | sh -s 2>&1
+        elif su 0 id </dev/null >/dev/null 2>&1; then
+            printf '%s\n' "$1" | su 0 sh -s 2>&1
+        else
+            printf '%s\n' "$1" | sh -s 2>&1
+        fi
     }
 
     shroot() {

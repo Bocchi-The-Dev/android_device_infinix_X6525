@@ -18,9 +18,6 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 # Inherit from the Infinix X6525 device tree.
 $(call inherit-product, device/infinix/X6525/device.mk)
 
-# Temporary bring-up debug: disable ADB RSA auth so early ADB works unattended.
-WITH_ADB_INSECURE := true
-
 # Inherit some common Lineage stuff.
 $(call inherit-product, vendor/lineage/config/common_full_phone.mk)
 
